@@ -118,4 +118,23 @@ Dalam aplikasi web modern, JSON lebih sering digunakan dalam pertukaran data kar
 - Mudah diintegrasikan ke dalam berbagai lingkungan dan platform karena support yang luas dari hampir semua bahasa pemrograman untuk parsing dan serializing data dalam format JSON
 - Ukuran data yang lebih kecil dibandingkan data dalam format lain sehingga mengurangi beban network untuk transfer data dan pemrosesannya lebih efisien
 
+
 ### 8. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Pertama saya membuat sebuah file baru pada direktori main bernama forms.py, kemudian menambahkan class ProductForm. Untuk fields saya menggunakan name, amount, dan description karena itu adalah field yang dimiliki oleh object product yang akan saya buat.
+
+Lalu saya membuka views.py dan mengimport ProductForm yang sudah saya buat tadi untuk membuat function create_product yang dapat menambahkan product ketika data di submit. Kemudian saya juga menambahkan perintah baru pada function show_main sehingga dia bisa menampilkan product yang sudah ditambahkan.
+
+Pada direktori main/templates, saya membuat file baru bernama create_product.html yang berfungsi sebagai tampilan untuk user ketika mereka ingin menambahkan product. Dan pada main.html juga saya tambahkan kode yang dapat menampilkan data product dalam bentuk table.
+
+Kembali pada file views.py, saya menambahkan 4 buah function yaitu show_xml, show_json, show_xml_by_id, show_json_by_id. Masing-masing dari function tersebut berguna untuk mengembalikan data ke user dalam format yang berbeda-beda.
+
+Setelah membuat semua function tersebut, maka kita perlu mengimportnya pada urls.py. File urls.py berfungsi agar ketika user memasukkan path, maka kita dapat direct mereka ke function yang sesuai dan menampilkan page yang sesuai. Path akan kita masukkan kedalam urlpatterns.
+
+
+### 9. Screenshot dari hasil akses URL pada POSTMAN
+![Screenshot 2023-09-20 111936](https://github.com/rafaeldewandaru/inventory/assets/112395930/85d099d6-b1f7-47d3-ab34-2e0011c300e2)
+![Screenshot 2023-09-20 112020](https://github.com/rafaeldewandaru/inventory/assets/112395930/9d835b7d-14ba-4a91-8a4d-922a4c0cdb16)
+![Screenshot 2023-09-20 112104](https://github.com/rafaeldewandaru/inventory/assets/112395930/e92066d2-a354-4bed-b1e4-59861e3d29c4)
+![Screenshot 2023-09-20 112154](https://github.com/rafaeldewandaru/inventory/assets/112395930/f1a804d6-7595-4ae4-92c4-80d2359d308e)
+![Screenshot 2023-09-20 112246](https://github.com/rafaeldewandaru/inventory/assets/112395930/57a3ee23-a69a-4c4f-8622-1f5658ae1bfd)
+
