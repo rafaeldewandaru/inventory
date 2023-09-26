@@ -5,7 +5,8 @@
 # Tautan aplikasi Adaptable: https://pacilinks.adaptable.app 
 ---
 
-## TUGAS 2
+<details>
+<summary>TUGAS 2</summary>
 
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 Pertama, saya membuat sebuah lokal direktori bernama inventory yang kemudian saya melakukan semua steps dalam tutorial untuk menyusun project tersebut, lalu menginstall virtual environment dan mengaktifkannya untuk direktori yang sedang saya kerjakan, kemudian setelah semua setup awal selesai, barulah saya melakukan git init dan membuat repository baru dalam GitHub dengan nama yang sama dengan project saya, lalu menghubungkannya dan melakukan git add commit push.
@@ -82,11 +83,13 @@ MVVM bertujuan untuk menyederhanakan hubungan antara Model dan View sehingga apl
 Lalu perbedaan dari ketiganya adalah:
 - MVT menggunakan Template untuk merender file HTML, sementara MVC dan MVVM menggunakan View untuk merender.
 - MVVM biasanya terkait dengan User Interface Framework yang lebih modern dan interaktif, sementara MVC dan MVT lebih cocok digunakan dalam berbagai jenis aplikasi
+ </details>
 
 
-## TUGAS 3
+<details>
+<summary>TUGAS 3</summary>
 
-### 5. Apa perbedaan antara form POST dan form GET dalam Django?
+### 1. Apa perbedaan antara form POST dan form GET dalam Django?
 POST dan GET, keduanya merupakan sebuah request method yang ada dalam http protocol. Secara umum GET digunakan untuk mengambil data dari server, sementara POST digunakan untuk mengirim data ke server.
 
 GET Request:
@@ -98,7 +101,7 @@ POST Request:
 - Data dikirm dalam sebuah request body sehingga tidak terlihat dalam URL dan lebih aman untuk data yang bersifat sensitif
 
 
-### 6. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+### 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
 XML:
 - Menyimpan data dalam sebuah tree yang kompleks, lalu syntaxnya lebih bertele-tele dan berbasis tag yang berarti data dalam XML diapit oleh tag-tag yang mendefinisikan elemen dan hierarki
 - Karena format yang lebih kompleks, maka XML memakan lebih banyak space tetapi XML mendukung lebih banyak tipe data dari JSON
@@ -111,7 +114,7 @@ HTML:
 Berbeda dengan XML dan JSON, HTML secara umum bukan digunakan untuk pertukaran data, namun sebagai bahasa markup yang digunakan untuk mengatur dan menampilkan konten dari web sehingga lebih cocok digunakan untuk merender halaman web
 
 
-### 7. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+### 3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
 Dalam aplikasi web modern, JSON lebih sering digunakan dalam pertukaran data karena:
 - Menggunakan format/syntax yang ringkas dan mudah dibaca sehingga mudah dimengerti oleh manusia
 - Dalam JSON, kita dapat menyusun data dalam objek, array, dan campuran keduanya, sehingga lebih fleksibel dan memungkinkan pemodelan data yang sangat dinamis.
@@ -119,7 +122,7 @@ Dalam aplikasi web modern, JSON lebih sering digunakan dalam pertukaran data kar
 - Ukuran data yang lebih kecil dibandingkan data dalam format lain sehingga mengurangi beban network untuk transfer data dan pemrosesannya lebih efisien
 
 
-### 8. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 Pertama saya membuat sebuah file baru pada direktori main bernama forms.py, kemudian menambahkan class ProductForm. Untuk fields saya menggunakan name, amount, dan description karena itu adalah field yang dimiliki oleh object product yang akan saya buat.
 
 Lalu saya membuka views.py dan mengimport ProductForm yang sudah saya buat tadi untuk membuat function create_product yang dapat menambahkan product ketika data di submit. Kemudian saya juga menambahkan perintah baru pada function show_main sehingga dia bisa menampilkan product yang sudah ditambahkan.
@@ -131,10 +134,31 @@ Kembali pada file views.py, saya menambahkan 4 buah function yaitu show_xml, sho
 Setelah membuat semua function tersebut, maka kita perlu mengimportnya pada urls.py. File urls.py berfungsi agar ketika user memasukkan path, maka kita dapat direct mereka ke function yang sesuai dan menampilkan page yang sesuai. Path akan kita masukkan kedalam urlpatterns.
 
 
-### 9. Screenshot dari hasil akses URL pada POSTMAN
+### 5. Screenshot dari hasil akses URL pada POSTMAN
 ![Screenshot 2023-09-20 111936](https://github.com/rafaeldewandaru/inventory/assets/112395930/85d099d6-b1f7-47d3-ab34-2e0011c300e2)
 ![Screenshot 2023-09-20 112020](https://github.com/rafaeldewandaru/inventory/assets/112395930/9d835b7d-14ba-4a91-8a4d-922a4c0cdb16)
 ![Screenshot 2023-09-20 112104](https://github.com/rafaeldewandaru/inventory/assets/112395930/e92066d2-a354-4bed-b1e4-59861e3d29c4)
 ![Screenshot 2023-09-20 112154](https://github.com/rafaeldewandaru/inventory/assets/112395930/f1a804d6-7595-4ae4-92c4-80d2359d308e)
 ![Screenshot 2023-09-20 112246](https://github.com/rafaeldewandaru/inventory/assets/112395930/57a3ee23-a69a-4c4f-8622-1f5658ae1bfd)
 
+</details>
+
+
+<details>
+<summary>TUGAS 4</summary>
+
+ ### 1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+ Django UserCreationForm adalah komponen bawaan Django yang menyediakan form untuk user registration dalam pengembangan aplikasi web. Form ini memudahkan pengembang untuk mengumpulkan data yang diperlukan untuk membuat akun pengguna, seperti username, password, dan informasi lainnya. UserCreationForm terintegrasi dengan baik dengan model pengguna Django, yang memungkinkan penyimpanan dan manajemen data pengguna dengan mudah. Kelebihannya mencakup kemudahan penggunaan, validasi otomatis, dan customizability. Namun, kekurangannya termasuk ketergantungan pada Django, tampilan standar yang mungkin perlu disesuaikan, serta pembatasan dalam hal fungsionalitas untuk aplikasi web yang lebih kompleks.
+
+ ### 2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+ Autentikasi merujuk pada proses verifikasi pengguna (yang biasanya menggunakan username dan password), sementara otorisasi berkaitan dengan proses menentukan hak akses yang diberikan kepada pengguna setelah berhasil autentikasi. Oleh karena itu, keduanya penting karena autentikasi memverifikasi penggunanya yang ingin mengakses web django, sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diperbolehkan) kepada pengguna yang terautensikasi tersebut.
+
+ ### 3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+ Cookies dalam konteks aplikasi web adalah file kecil yang disimpan di browser pengguna dan digunakan untuk menyimpan data sesi, seperti ID sesi atau informasi login. Selanjutnya, browser akan menyimpan cookie yang akan secara otomatis disertakan dalam setiap request berikutnya kepada situs web tersebut. Django menggunakan cookies untuk mengelola data sesi pengguna dengan aman, memungkinkan penyimpanan dan pengambilan informasi sesi seperti status login atau preferensi pengguna dengan cara yang efisien, serta menyediakan mekanisme keamanan bawaan untuk melindungi integritas data sesi.
+
+ ### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Dalam kondisi default, cookie tidak dapat mentransfer malware atau virus karena data dalam cookie bersifat statis, namun pengguna tetap perlu waspada terhadap risiko-risiko seperti pencurian cookie yang bisa mengizinkan akses tanpa otorisasi dan modifikasi data jika cookie tidak dienkripsi. Karena cookie tersimpan di sisi client, keamanannya sangat bergantung pada aktivitas pengguna, yang juga berarti informasi sensitif harus dihindari dari tampilan cookie seperti password karena cookie dapat dilihat, disalin, dan ditiru dengan mudah.
+
+ ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+</details>
