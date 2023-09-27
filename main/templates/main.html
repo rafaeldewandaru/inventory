@@ -23,9 +23,29 @@
             <td>{{product.name}}</td>
             <td>{{product.amount}}</td>
             <td>{{product.description}}</td>
+
+            <td class="d-flex align-items-center">
+                <form method="post" action="{% url 'main:plus_product_amount' product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mx-1">+</button>
+                </form>
+
+                <form method="post" action="{% url 'main:minus_product_amount' product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mx-1">-</button>
+                </form>
+                
+                <form method="post" action="{% url 'main:remove_product' product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mx-1">Delete</button>
+                </form>
+            </td>
+
         </tr>
     {% endfor %}
 </table>
+
+
 
 <h5>Sesi terakhir login: {{ last_login }}</h5>
 

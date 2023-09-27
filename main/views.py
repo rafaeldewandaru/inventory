@@ -17,11 +17,16 @@ import datetime
 @login_required(login_url='/login')
 def show_main(request):
     products = Product.objects.filter(user=request.user)
+    if 'last_login' in request.COOKIES:
+        last_login = request.COOKIES['last_login']
+    else:
+        last_login = 'N/A'
+        
     context = {
         'name': request.user.username,
         'class': 'PBP F',
         'products': products,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': last_login,
     }
 
     return render(request, "main.html", context)
@@ -110,4 +115,27 @@ def logout_user(request):
     return response
 
 
-# Create your views here.
+# Bonus
+def plus_product_amount(request, id):
+    product = Product.objects.get(id=id)
+    product.amount += 1
+    product.save()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+
+
+def minus_product_amount(request, id):
+    product = Product.objects.get(id=id)
+    if (product.amount > 0):
+        product.amount -= 1
+        product.save()
+    else :
+        messages.info(request, f'Jumlah {product.name} sudah bernilai 0!')
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+
+
+def remove_product(request, id):
+    Product.objects.filter(pk=id).delete()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
