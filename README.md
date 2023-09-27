@@ -160,5 +160,159 @@ Setelah membuat semua function tersebut, maka kita perlu mengimportnya pada urls
 Dalam kondisi default, cookie tidak dapat mentransfer malware atau virus karena data dalam cookie bersifat statis, namun pengguna tetap perlu waspada terhadap risiko-risiko seperti pencurian cookie yang bisa mengizinkan akses tanpa otorisasi dan modifikasi data jika cookie tidak dienkripsi. Karena cookie tersimpan di sisi client, keamanannya sangat bergantung pada aktivitas pengguna, yang juga berarti informasi sensitif harus dihindari dari tampilan cookie seperti password karena cookie dapat dilihat, disalin, dan ditiru dengan mudah.
 
  ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Pertama saya mengaktifkan virtual environment, kemudian import semua library yang diperlukan pada views.py
+Kemudian saya menambahkan ketiga functions berikut
 
+Function untuk register user baru
+~~~
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+~~~
+dan menambahkan file html baru bernama register.html yang ditampilkan ke user
+
+Function agar user yang sudah register dapat login
+~~~
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+~~~
+dan menambahkan file html baru bernama login.html yang ditampilkan ke user
+
+Function agar user yang sedang login dapat logout
+~~~
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
 </details>
+~~~
+dan menambahkan kode html berikut pada main.html untuk tombol logout
+~~~
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+~~~
+
+Lalu mengimport semua function yang sudah saya buat tadi ke urls.py dan menambahkan path seperti berikut
+~~~
+path('register/', register, name='register'),
+path('login/', login_user, name='login'),
+path('logout/', logout_user, name='logout'),
+~~~
+
+Saya juga menambahkan kode berikut pada function show_main agar tidak error saat tidak ada cookie
+~~~
+if 'last_login' in request.COOKIES:
+    last_login = request.COOKIES['last_login']
+else:
+    last_login = 'N/A'
+~~~
+
+Kemudian saya mengimport user di file models.py dan menambahkan kode berikut untuk menghubungkan model products dengan user
+
+Pada class products menjadi seperti berikut
+~~~
+class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    amount = models.IntegerField()
+    description = models.TextField()
+~~~
+
+Lalu fungsi create_product menjadi seperti berikut
+~~~
+def create_product(request):
+    form = ProductForm(request.POST or None)
+    
+    if form.is_valid() and request.method == "POST":
+        product = form.save(commit=False)
+        product.user = request.user
+        product.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+~~~
+
+
+
+Untuk bagian bonus saya menambahkan ketiga function berikut
+
+Function untuk menambahkan jumlah dari suatu product
+~~~
+def plus_product_amount(request, id):
+    product = Product.objects.get(id=id)
+    product.amount += 1
+    product.save()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+~~~
+
+Function untuk mengurangi jumlah dari suatu product
+~~~
+def minus_product_amount(request, id):
+    product = Product.objects.get(id=id)
+    if (product.amount > 0):
+        product.amount -= 1
+        product.save()
+    else :
+        messages.info(request, f'Jumlah {product.name} sudah bernilai 0!')
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+~~~
+
+Function untuk menghilangkan suatu product sepenuhnya
+~~~
+def remove_product(request, id):
+    Product.objects.filter(pk=id).delete()
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    return response
+~~~
+
+Import function yang sudah dibuat pada urls.py lalu menambahkan path berikut
+~~~
+path('plus_product_amount/<int:id>', plus_product_amount, name='plus_product_amount'),
+path('minus_product_amount/<int:id>', minus_product_amount, name='minus_product_amount'),
+path('remove_product/<int:id>', remove_product, name='remove_product'),
+~~~
+
+Tambahkan kode berikut pada main.html untuk menunjukkan buttons yang akan menjalankan function-function yang sudah dibuat
+~~~
+<td class="d-flex align-items-center">
+    <form method="post" action="{% url 'main:plus_product_amount' product.id %}">
+        {% csrf_token %}
+        <button class="btn btn-primary mx-1">+</button>
+    </form>
+    <form method="post" action="{% url 'main:minus_product_amount' product.id %}">
+        {% csrf_token %}
+        <button class="btn btn-primary mx-1">-</button>
+    </form>
+    <form method="post" action="{% url 'main:remove_product' product.id %}">
+        {% csrf_token %}
+        <button class="btn btn-primary mx-1">Delete</button>
+    </form>
+</td>
+~~~
