@@ -335,7 +335,7 @@ Class Selector
 Digunakan untuk memilih elemen berdasarkan nilai atribut class yang diberikan kepada mereka. Selector kelas digunakan ketika ingin mengatur gaya untuk sekelompok elemen yang memiliki karakteristik atau fungsi yang serupa.
 ~~~
 <p class="highlight">Ini adalah teks yang di-highlight.</p>
-~~
+~~~
 
 ~~~
 .highlight {
@@ -429,6 +429,354 @@ Bootstrap sebaiknya digunakan ketika:
 
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Saya membuat 5 file css baru yang digunakan untuk styling halaman login, reigister, main, edit_product, dan create_product
 
+File login.css
+~~~
+/* static/css/login.css */
+
+.login {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.login h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form table {
+    width: 100%;
+}
+
+form table tr td {
+    padding: 10px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn.login_btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.login_btn:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    color: #ff0000;
+}
+~~~
+
+File register.css
+~~~
+/* static/css/register.css */
+
+.login {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.login h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form table {
+    width: 100%;
+}
+
+form table tr td {
+    padding: 10px;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    color: #ff0000;
+}
+~~~
+
+File main.css
+~~~
+/* static/css/main.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h5 {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+table td {
+    background-color: #fff;
+}
+
+table tr:last-child td {
+    background-color: #becddc;
+    color: #160323;
+    font-weight: 500;
+  }
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+a button {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+a button:hover {
+    background-color: #0056b3;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+~~~
+
+File edit_product.css
+~~~
+/* static/css/edit_product.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+table {
+    width: 100%;
+}
+
+table tr td {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+~~~
+
+File create_product.css
+~~~
+/* static/css/create_product.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+table {
+    width: 100%;
+}
+
+table tr td {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+~~~
+
+Kemudian di setiap template html saya tambahkan kode berikut agar mengimplementasi css yang sudah saya buat
+~~~
+{% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/nama_file.css' %}">
+    <title>Judul halaman</title>
+{% endblock meta %}
+~~~
 
  </details>
