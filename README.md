@@ -316,3 +316,117 @@ Tambahkan kode berikut pada main.html untuk menunjukkan buttons yang akan menjal
     </form>
 </td>
 ~~~
+
+<details>
+<summary>TUGAS 5</summary>
+
+### 1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+Element Selector
+Digunakan untuk memilih semua elemen HTML dengan jenis tertentu, misalnya <p>, <h1>, <div>, dll. Ini adalah selector paling umum dan sederhana. Biasanya digunakan ketika ingin mengatur gaya untuk semua elemen dengan jenis yang sama di seluruh halaman web.
+~~~
+p {
+    font-size: 16px;
+}
+~~~
+
+Class Selector
+Digunakan untuk memilih elemen berdasarkan nilai atribut class yang diberikan kepada mereka. Selector kelas digunakan ketika ingin mengatur gaya untuk sekelompok elemen yang memiliki karakteristik atau fungsi yang serupa.
+~~~
+<p class="highlight">Ini adalah teks yang di-highlight.</p>
+~~
+
+~~~
+.highlight {
+    background-color: yellow;
+}
+~~~
+
+ID Selector
+Digunakan untuk memilih elemen berdasarkan nilai atribut id. Setiap ID harus unik di seluruh halaman, sehingga selector ini cocok untuk mengidentifikasi elemen tertentu. Berguna ketika kita ingin mengatur kaya kepada elemen tertentu dengan id unik.
+~~~
+<div id="header">Ini adalah header.</div>
+~~~
+
+~~~
+#header {
+    font-size: 24px;
+    background-color: #333;
+    color: white;
+}
+~~~
+
+Descendant Selector
+Memungkinkan kita untuk memilih elemen yang merupakan turunan atau anak dari elemen lain. Ini berguna untuk mengatur gaya elemen dalam konteks tertentu seperti sebuah div tertentu
+~~~
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ul>
+~~~
+
+~~~
+ul li {
+    list-style-type: square;
+}
+~~~
+
+Pseudo-class Selector
+Selector pseudo-class digunakan untuk menggabungkan gaya ke elemen berdasarkan keadaan atau aksi tertentu, seperti saat elemen sedang dihover atau aktif sebagai respon terhadap interaksi pengguna.
+~~~
+a:hover {
+    text-decoration: underline;
+}
+~~~
+
+### 2. Jelaskan HTML5 Tag yang kamu ketahui.
+~~~
+<td> Berguna untuk membuat sel dalam sebuah tabel HTML.
+<tr> Digunakan untuk membuat baris dalam tabel.
+<th> Membuat sel header dalam tabel, biasanya digunakan untuk judul kolom.
+<style> Digunakan untuk menyertakan informasi gaya (CSS) dalam dokumen HTML.
+<canvas> merupakan elemen yang digunakan untuk menciptakan gambar, grafik, dan animasi melalui penggunaan JavaScript.
+<video> adalah elemen yang berguna untuk menampilkan video di dalam laman web.
+<nav> digunakan untuk membuat bagian yang berfungsi sebagai navigasi untuk situs web.
+<audio> adalah elemen yang memungkinkan kita untuk menampilkan file audio di dalam halaman web.
+<img> adalah elemen yang digunakan untuk menampilkan gambar pada halaman web.
+<a> berguna untuk membuat tautan atau hyperlink ke laman web lain, file, dan sumber daya lainnya.
+~~~
+
+### 3. Jelaskan perbedaan antara margin dan padding.
+Margin
+Ruang yang terletak di luar batas elemen. Margin digunakan untuk menambahkan ruang di antara elemen dengan elemen lain di sekitarnya dan tidak memiliki latar belakang atau warna (area kosong di sekitar elemen).
+Jika dua elemen memiliki margin yang saling bersentuhan, maka margin tersebut tidak akan digabungkan (menggunakan margin-collapse), tetapi margin yang lebih besar akan diambil sebagai jarak antara keduanya.
+~~~
+.box {
+    margin: 10px;
+}
+~~~
+Dalam contoh di atas, elemen dengan kelas "box" akan memiliki margin 10 piksel di sekelilingnya.
+
+
+Padding
+Ruang yang terletak di dalam batas elemen, di antara batas elemen dan kontennya. Padding digunakan untuk menambahkan ruang di antara konten elemen dan batasnya sendiri, kita dapat memberikan latar belakang atau warna pada padding, sehingga padding adalah area yang dapat dilihat.
+~~~
+.box {
+    padding: 10px;
+}
+~~~
+
+
+### 4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+Tailwind CSS adalah framework CSS "utility-first" yang memberikan kelas-kelas utilitas yang bisa langsung digunakan untuk mengatur gaya elemen. Ini memberikan tingkat kustomisasi yang tinggi.
+Tailwind CSS sebaiknya digunakan ketika:
+- kita ingin tingkat kustomisasi yang tinggi dan kontrol penuh atas tampilan elemen.
+- kita ingin desain yang unik dan tidak konvensional.
+- kita ingin menghindari pembengkakan ukuran file CSS.
+
+Bootstrap adalah framework CSS yang menyediakan komponen dan gaya prasetel yang siap pakai, cocok untuk pengembangan cepat dengan tampilan konsisten
+Bootstrap sebaiknya digunakan ketika:
+- Proyek memerlukan pembuatan cepat dan tampilan konsisten.
+- Terbatas waktu dalam pengembangan.
+
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+
+ </details>
