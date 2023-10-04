@@ -317,6 +317,8 @@ Tambahkan kode berikut pada main.html untuk menunjukkan buttons yang akan menjal
 </td>
 ~~~
 
+</details>
+
 <details>
 <summary>TUGAS 5</summary>
 
