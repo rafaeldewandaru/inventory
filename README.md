@@ -324,7 +324,7 @@ Tambahkan kode berikut pada main.html untuk menunjukkan buttons yang akan menjal
 
 ### 1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
 Element Selector
-Digunakan untuk memilih semua elemen HTML dengan jenis tertentu, misalnya <p>, <h1>, <div>, dll. Ini adalah selector paling umum dan sederhana. Biasanya digunakan ketika ingin mengatur gaya untuk semua elemen dengan jenis yang sama di seluruh halaman web.
+Digunakan untuk memilih semua elemen HTML dengan jenis tertentu, misalnya p, h1, div, dll. Ini adalah selector paling umum dan sederhana. Biasanya digunakan ketika ingin mengatur gaya untuk semua elemen dengan jenis yang sama di seluruh halaman web.
 ~~~
 p {
     font-size: 16px;
