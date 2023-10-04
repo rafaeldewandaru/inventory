@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Main</title>
+{% endblock meta %}
+
 {% block content %}
     <h1>Shopping List Page</h1>
 
@@ -16,7 +25,6 @@
         <th>Description</th>
     </tr>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
     {% for product in products %}
         <tr>
@@ -39,7 +47,7 @@
                     {% csrf_token %}
                     <button class="btn btn-primary mx-1">Delete</button>
                 </form>
-                
+
                     <a href="{% url 'main:edit_product' product.pk %}">
                         <button>
                             Edit

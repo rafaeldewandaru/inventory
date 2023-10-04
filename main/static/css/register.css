@@ -1,4 +1,4 @@
-/* static/css/login.css */
+/* static/css/register.css */
 
 .login {
     max-width: 400px;
@@ -27,7 +27,8 @@ form table tr td {
     padding: 10px;
 }
 
-.form-control {
+form input[type="text"],
+form input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -35,7 +36,7 @@ form table tr td {
     border-radius: 5px;
 }
 
-.btn.login_btn {
+form input[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -45,7 +46,7 @@ form table tr td {
     cursor: pointer;
 }
 
-.btn.login_btn:hover {
+form input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
