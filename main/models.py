@@ -6,5 +6,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     amount = models.IntegerField()
     description = models.TextField()
+    image_url = models.TextField()
     
 # Create your models here.

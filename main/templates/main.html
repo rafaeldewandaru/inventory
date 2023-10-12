@@ -3,82 +3,183 @@
 {% load static %}
 
 {% block meta %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <title>Main</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/main1.css' %}">
+  <title>Home</title>
 {% endblock meta %}
 
 {% block content %}
-    <h1>Shopping List Page</h1>
-
-    <h5>Name:</h5>
-    <p>{{name}}</p>
-
-    <h5>Class:</h5>
-    <p>{{class}}</p>
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Description</th>
-    </tr>
-
-
-    {% for product in products %}
-        <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.amount}}</td>
-            <td>{{product.description}}</td>
-
-            <td class="d-flex align-items-center">
-                <form method="post" action="{% url 'main:plus_product_amount' product.id %}">
-                    {% csrf_token %}
-                    <button class="btn btn-primary mx-1">+</button>
-                </form>
-
-                <form method="post" action="{% url 'main:minus_product_amount' product.id %}">
-                    {% csrf_token %}
-                    <button class="btn btn-primary mx-1">-</button>
-                </form>
+<div class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Welcome to your Inventory, {{name}}!</span>
+        
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
                 
-                <form method="post" action="{% url 'main:remove_product' product.id %}">
+            <div class="login_session">
+                <p>Last login session: {{ last_login }}</p>
+            </div>
+            </ul>
+        </div>
+        <a class="nav-link" type="button"  data-bs-target="#exampleModal" data-bs-toggle="modal" style="color: #4f953d;; font-weight: 600; padding-right: 30px;" >Add New Item</a>
+
+        <div class="ml-auto"> 
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-person-circle"></i> {{ name }}, {{ class }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" style="color: #ff0000;" href="{% url 'main:logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+
+      <h1 style="color: #fff;">{{name}}'s Inventory</h1>
+
+  <div class="container">
+
+      <div id="product_cards" class="card-group"></div>
+
+      <div class="total-product">
+        <h4>Item count: {{ products|length }}</h4>
+      </div>
+
+    <br />
+
+  </div>
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
                     {% csrf_token %}
-                    <button class="btn btn-primary mx-1">Delete</button>
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image_url" class="col-form-label">Image url:</label>
+                        <textarea class="form-control" id="image_url" name="image_url"></textarea>
+                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <a href="{% url 'main:edit_product' product.pk %}">
-                        <button>
-                            Edit
-                        </button>
-                    </a>
-                </td>
-            </td>
+<script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    } 
 
-        </tr>
-    {% endfor %}
-</table>
+    async function refreshProducts() {
+        const productCardsContainer = document.getElementById("product_cards");
+        productCardsContainer.innerHTML = "";
+    
+        const products = await getProducts();
+    
+        products.forEach((product) => {
+            const card = document.createElement("div");
+            card.classList.add("col-4");
+    
+            card.innerHTML = `
+                <div class="card" style="width: 18rem; border-radius: 20px; padding-left: 10px; padding-right: 10px; align-items: center;"">
+                    <img src="${product.fields.image_url}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.fields.name}</h5>
+                        <p class="card-text">${product.fields.description}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Amount: ${product.fields.amount}</li>
+                    </ul>
+                    
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <a href="plus_product_amount/${product.pk}" class="btn btn-primary mx-1">+</a>
+                            <a href="minus_product_amount/${product.pk}" class="btn btn-primary mx-1">-</a>
+                            <a href="remove_product/${product.pk}" class="btn btn-primary mx-1">Delete</a>
+                        </div>
+                    </div>
+                </div>`;
+    
+            productCardsContainer.appendChild(card);
+        });
+    }
+    
+    
+    refreshProducts()
+    
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+    
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct  
 
 
+    function increaseAmount(productId) {
+        fetch(`/plus_product_amount/${productId}`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+        })
+            .then(() => refreshProducts())
+            .catch((error) => console.error("Error:", error));
+    }
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    function decreaseAmount(productId) {
+        fetch(`/minus_product_amount/${productId}`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+        })
+            .then(() => refreshProducts())
+            .catch((error) => console.error("Error:", error));
+    }
 
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
-
-<br />
-<br />
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
-
+</script>
 
 {% endblock content %}

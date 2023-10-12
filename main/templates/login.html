@@ -5,7 +5,57 @@
 {% block meta %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login1.css' %}">
+    <title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<body>
+    <section>
+        <div class = "login">
+            <h1>My Inventory</h1>
+                <div class = "inputbox">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <table>
+                            <tr class="label">
+                                <td>Username</td>
+                                <td><input class="form-control" type="text" name="username" placeholder="Username"></td>
+                            </tr>
+                                    
+                            <tr class="label" style="padding-top: 10px;">
+                                <td>Password</td>
+                                <td><input class="form-control" type="password" name="password" placeholder="Password"></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td><input class="login_btn" type="submit" value="Log in"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}     
+            <div class = register>
+                Don't have an account yet? <a href="{% url 'main:register' %}">Register</a>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock content %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <link rel="stylesheet" href="{% static 'css/login2.css' %}">
     <title>Login</title>
 {% endblock meta %}
 
@@ -47,4 +97,4 @@
 
 </div>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
