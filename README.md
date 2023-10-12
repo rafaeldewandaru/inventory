@@ -784,14 +784,92 @@ Kemudian di setiap template html saya tambahkan kode berikut agar mengimplementa
 <summary>TUGAS 6</summary>
 
 ### 1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
-
+Asynchronous programming memungkinkan tugas-tugas dalam program untuk berjalan secara bersamaan, tanpa harus menunggu satu sama lain selesai, sehingga menjadikan program lebih responsif, sementara synchronous programming menjalankan tugas satu per satu secara berurutan, yang dapat menghentikan program jika tugas tertentu membutuhkan waktu yang lama.
 
 ### 2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Event-driven programming adalah pendekatan pemrograman di mana program secara aktif merespons kejadian atau peristiwa tertentu, seperti interaksi pengguna seperti klik mouse, mengarahkan mouse, input pengguna, atau permintaan AJAX. Sebagai contoh dalam tugas ini, event-driven programming terlihat ketika pengguna mengeklik tombol "Add New Item" program akan menampilkan sebuah jendela modal yang meminta pengguna untuk memasukkan data produk yang akan dibuat.
 
 ### 3. Jelaskan penerapan asynchronous programming pada AJAX.
+Penerapan event-driven programming juga ditemukan dalam permintaan HTTP, seperti GET dan POST, yang dijalankan secara asinkron untuk tidak mengganggu alur program utama. Data dari server diproses setelah diterima tanpa perlu menunggu, sehingga menciptakan responsifitas yang lebih baik pada website dan meningkatkan pengalaman pengguna.
 
 ### 4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+Fetch API adalah standar terbaru dalam JavaScript untuk mengirim permintaan HTTP, yang memanfaatkan Promis untuk mengelola respons dari permintaan tersebut. Fetch API dianggap sebagai pilihan yang lebih modern dan terintegrasi dengan JavaScript yang baru, meskipun dalam kasus penggunaan yang lebih rumit, mungkin memerlukan penulisan kode yang lebih luas. Di sisi lain, jQuery adalah sebuah pustaka JavaScript yang digunakan untuk mengimplementasikan AJAX, dan dirancang agar dapat berjalan pada berbagai jenis browser. Kode dari versi jQuery yang lebih lama masih dapat berfungsi dalam versi yang lebih baru, menunjukkan tingkat kompatibilitas yang baik. Selain itu, jQuery menyediakan abstraksi tingkat tinggi untuk penggunaan AJAX, animasi, dan manipulasi DOM, yang dapat mempercepat proses pengembangan. Terdapat juga banyak plugin yang tersedia dalam jQuery, yang dapat mempercepat pengembangan. Dalam konteks proyek yang lebih kecil, dengan fokus pada penggunaan standar yang lebih baru, Fetch API bisa menjadi pilihan yang lebih baik karena mendukung fitur-fitur modern dalam JavaScript. Namun, jika proyek lebih besar dan perlu menangani beragam browser, penggunaan jQuery mungkin menjadi pilihan yang lebih tepat.
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Membuat fungsi untuk remove product dengan AJAX dan add product dengan AJAX
+~~~
+@csrf_exempt
+def remove_product_ajax(request, id):
+    Product.objects.filter(pk=id).delete()
+    return HttpResponseRedirect(reverse("main:show_main"))
+
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        image_url = request.POST.get("image_url")
+        user = request.user
+
+        new_product = Product(name=name, amount=amount, description=description, image_url=image_url, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+~~~
+
+Routing ke urls.py
+~~~
+    ...
+    path('remove_product_ajax/<int:id>', views.remove_product_ajax , name='remove_product_ajax'),
+    path('create-product-ajax/', views.add_product_ajax, name='add_product_ajax')
+    ...
+~~~
+
+Kemudian membuat script yang dapat menjalankan fungsi tadi di main.html
+
+Sesuai ketentuan tugas, saya mengganti tampilan tabel untuk produknya dengan cards seperti berikut
+~~~
+async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    } 
+
+    async function refreshProducts() {
+        const productCardsContainer = document.getElementById("product_cards");
+        productCardsContainer.innerHTML = "";
+    
+        const products = await getProducts();
+    
+        products.forEach((product) => {
+            const card = document.createElement("div");
+            card.classList.add("col-4");
+    
+            card.innerHTML = `
+                <div class="card" style="width: 18rem; border-radius: 20px; padding-left: 10px; padding-right: 10px; align-items: center;"">
+                    <img src="${product.fields.image_url}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.fields.name}</h5>
+                        <p class="card-text">${product.fields.description}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Amount: ${product.fields.amount}</li>
+                    </ul>
+                    
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <a href="plus_product_amount/${product.pk}" class="btn btn-primary mx-1">+</a>
+                            <a href="minus_product_amount/${product.pk}" class="btn btn-primary mx-1">-</a>
+                            <button onClick="delete_product_ajax(${product.pk})"class="btn btn-primary mx-1">Delete</button>
+                        </div>
+                    </div>
+                </div>`;
+    
+            productCardsContainer.appendChild(card);
+        });
+    }
+~~~
+Di cuplikan kode tersebut saya menggunakan AJAX GET untuk mendapatkan product milik user lalu menampilkannya dalam bentuk cards. Saya juga menambahkan button delete yang sudah mengimplementasi AJAX untuk bonus.
 
 </details>
