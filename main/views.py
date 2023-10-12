@@ -143,6 +143,11 @@ def get_product_json(request):
     product_item = Product.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', product_item))
 
+@csrf_exempt
+def remove_product_ajax(request, id):
+    Product.objects.filter(pk=id).delete()
+    return HttpResponseRedirect(reverse("main:show_main"))
+
 
 @csrf_exempt
 def add_product_ajax(request):

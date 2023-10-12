@@ -785,6 +785,7 @@ Kemudian di setiap template html saya tambahkan kode berikut agar mengimplementa
 
 ### 1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
 
+
 ### 2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
 
 ### 3. Jelaskan penerapan asynchronous programming pada AJAX.

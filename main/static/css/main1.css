@@ -94,3 +94,20 @@
     text-align: center;
     font-weight: 600;
   }
+
+  .remove_button {
+    position: relative;
+    width: 100%;
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: 600;
+    border: 1px solid #0b0c50; /* Dark border */
+    padding: 5px 20px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 16px;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}

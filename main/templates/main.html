@@ -119,7 +119,7 @@
                         <div class="d-flex">
                             <a href="plus_product_amount/${product.pk}" class="btn btn-primary mx-1">+</a>
                             <a href="minus_product_amount/${product.pk}" class="btn btn-primary mx-1">-</a>
-                            <a href="remove_product/${product.pk}" class="btn btn-primary mx-1">Delete</a>
+                            <button onClick="delete_product_ajax(${product.pk})"class="btn btn-primary mx-1">Delete</button>
                         </div>
                     </div>
                 </div>`;
@@ -164,6 +164,14 @@
             .then(() => refreshProducts())
             .catch((error) => console.error("Error:", error));
     }
+    
+    function delete_product_ajax(ID) {
+        fetch(`/remove_product_ajax/${ID}`, {
+            method: 'DELETE',
+        }).then(refreshProducts).then(refreshCard)
+        }
+    document.getElementById("remove-button").onclick = delete_product_ajax
+
 
     function getCookie(name) {
         var cookieValue = null;
