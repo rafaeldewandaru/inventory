@@ -49,7 +49,7 @@ traitlets==5.11.2
 typing_extensions==4.7.1
 tzdata==2023.3
 urllib3==2.0.6
-vboxapi==1.0
+vboxapi
 virtualenv==20.24.5
 wcwidth==0.2.8
 whitenoise==6.6.0
