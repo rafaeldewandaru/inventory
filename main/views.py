@@ -170,6 +170,7 @@ def create_product_flutter(request):
     if request.method == 'POST':
         
         data = json.loads(request.body)
+        print(data)
 
         new_product = Product.objects.create(
             user = request.user,
@@ -180,7 +181,9 @@ def create_product_flutter(request):
         )
 
         new_product.save()
+        print("berhasil")
 
         return JsonResponse({"status": "success"}, status=200)
     else:
+        print("gagal")
         return JsonResponse({"status": "error"}, status=401)
